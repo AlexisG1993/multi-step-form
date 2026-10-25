@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <title>Frontend Mentor | Multi-step form</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'blue-950': 'hsl(213, 96%, 18%)',
+            'purple-600': 'hsl(243, 100%, 62%)',
+            'blue-300': 'hsl(228, 100%, 84%)',
+            'blue-200': 'hsl(206, 94%, 87%)',
+            'red-500': 'hsl(354, 84%, 57%)',
+            'grey-500': 'hsl(231, 11%, 63%)',
+            'purple-200': 'hsl(229, 24%, 87%)',
+            'blue-100': 'hsl(218, 100%, 97%)',
+            'blue-50': 'hsl(231, 100%, 99%)',
+          },
+          fontFamily: { sans: ['Ubuntu', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    @font-face { font-family: 'Ubuntu'; font-weight: 400; src: url('./assets/fonts/Ubuntu-Regular.ttf') format('truetype'); font-display: swap; }
+    @font-face { font-family: 'Ubuntu'; font-weight: 500; src: url('./assets/fonts/Ubuntu-Medium.ttf') format('truetype'); font-display: swap; }
+    @font-face { font-family: 'Ubuntu'; font-weight: 700; src: url('./assets/fonts/Ubuntu-Bold.ttf') format('truetype'); font-display: swap; }
+
+    .sidebar { background: url('./assets/images/bg-sidebar-mobile.svg') center top / cover no-repeat; }
+    @media (min-width: 768px) {
+      .sidebar { background-image: url('./assets/images/bg-sidebar-desktop.svg'); }
+    }
+    .step-number[aria-current="step"] { background: hsl(206, 94%, 87%); border-color: hsl(206, 94%, 87%); color: hsl(213, 96%, 18%); }
+  </style>
+</head>
+<body class="min-h-screen bg-blue-100 font-sans text-base text-blue-950 md:flex md:items-center md:justify-center md:p-6">
+
+  <div class="flex min-h-screen flex-col md:min-h-0 md:w-[940px] md:flex-row md:rounded-[15px] md:bg-white md:p-4 md:shadow-[0_25px_40px_-20px_rgba(0,0,0,0.1)]">
+
+    <!-- Sidebar -->
+    <nav class="sidebar h-[172px] shrink-0 md:h-[568px] md:w-[274px] md:rounded-[10px]" aria-label="Form progress">
+      <ol class="flex justify-center gap-4 pt-8 md:flex-col md:gap-8 md:px-8 md:pt-10">
+        <li class="flex items-center gap-4">
+          <span class="step-number flex h-[33px] w-[33px] items-center justify-center rounded-full border border-white text-sm font-bold text-white" data-step-indicator="1">1</span>
+          <span class="hidden flex-col md:flex">
+            <span class="text-xs uppercase leading-[14px] text-blue-300">Step 1</span>
+            <span class="text-sm font-bold uppercase leading-[18px] tracking-[1px] text-white">Your info</span>
+          </span>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="step-number flex h-[33px] w-[33px] items-center justify-center rounded-full border border-white text-sm font-bold text-white" data-step-indicator="2">2</span>
+          <span class="hidden flex-col md:flex">
+            <span class="text-xs uppercase leading-[14px] text-blue-300">Step 2</span>
+            <span class="text-sm font-bold uppercase leading-[18px] tracking-[1px] text-white">Select plan</span>
+          </span>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="step-number flex h-[33px] w-[33px] items-center justify-center rounded-full border border-white text-sm font-bold text-white" data-step-indicator="3">3</span>
+          <span class="hidden flex-col md:flex">
+            <span class="text-xs uppercase leading-[14px] text-blue-300">Step 3</span>
+            <span class="text-sm font-bold uppercase leading-[18px] tracking-[1px] text-white">Add-ons</span>
+          </span>
+        </li>
+        <li class="flex items-center gap-4">
+          <span class="step-number flex h-[33px] w-[33px] items-center justify-center rounded-full border border-white text-sm font-bold text-white" data-step-indicator="4">4</span>
+          <span class="hidden flex-col md:flex">
+            <span class="text-xs uppercase leading-[14px] text-blue-300">Step 4</span>
+            <span class="text-sm font-bold uppercase leading-[18px] tracking-[1px] text-white">Summary</span>
+          </span>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Main -->
+    <form id="form" class="flex flex-1 flex-col md:ml-[100px] md:mr-[84px] md:w-[450px] md:pt-10 md:pb-4" novalidate>
+      <div class="relative mx-4 -mt-[73px] rounded-[10px] bg-white px-6 py-8 shadow-[0_25px_40px_-20px_rgba(0,0,0,0.1)] md:mx-0 md:mt-0 md:rounded-none md:p-0 md:shadow-none">
+
+        <!-- Step 1 -->
+        <section data-step="1">
+          <h1 class="text-2xl font-bold outline-none md:text-[32px] md:leading-tight" tabindex="-1">Personal info</h1>
+          <p class="mt-2 leading-[25px] text-grey-500 md:mt-[11px]">Please provide your name, email address, and phone number.</p>
+
+          <div class="mt-5 flex flex-col gap-4 md:mt-[35px] md:gap-5">
+            <div>
+              <div class="flex justify-between">
+                <label for="name" class="text-xs md:text-sm">Name</label>
+                <span id="name-error" class="text-xs font-bold text-red-500 md:text-sm" aria-live="polite"></span>
+              </div>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="e.g. Stephen King" aria-describedby="name-error" required
+                class="mt-1 h-10 w-full rounded border border-purple-200 px-4 text-[15px] font-medium text-blue-950 placeholder:text-grey-500 hover:border-purple-600 focus:border-purple-600 focus:outline-none aria-[invalid=true]:border-red-500 md:mt-2 md:h-12 md:rounded-lg md:text-base">
+            </div>
+            <div>
+              <div class="flex justify-between">
+                <label for="email" class="text-xs md:text-sm">Email Address</label>
+                <span id="email-error" class="text-xs font-bold text-red-500 md:text-sm" aria-live="polite"></span>
+              </div>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="e.g. stephenking@lorem.com" aria-describedby="email-error" required
+                class="mt-1 h-10 w-full rounded border border-purple-200 px-4 text-[15px] font-medium text-blue-950 placeholder:text-grey-500 hover:border-purple-600 focus:border-purple-600 focus:outline-none aria-[invalid=true]:border-red-500 md:mt-2 md:h-12 md:rounded-lg md:text-base">
+            </div>
+            <div>
+              <div class="flex justify-between">
+                <label for="phone" class="text-xs md:text-sm">Phone Number</label>
+                <span id="phone-error" class="text-xs font-bold text-red-500 md:text-sm" aria-live="polite"></span>
+              </div>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="e.g. +1 234 567 890" aria-describedby="phone-error" required
+                class="mt-1 h-10 w-full rounded border border-purple-200 px-4 text-[15px] font-medium text-blue-950 placeholder:text-grey-500 hover:border-purple-600 focus:border-purple-600 focus:outline-none aria-[invalid=true]:border-red-500 md:mt-2 md:h-12 md:rounded-lg md:text-base">
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section data-step="2" hidden>
+          <h1 class="text-2xl font-bold outline-none md:text-[32px] md:leading-tight" tabindex="-1">Select your plan</h1>
+          <p class="mt-2 leading-[25px] text-grey-500 md:mt-[11px]">You have the option of monthly or yearly billing.</p>
+
+          <fieldset class="mt-5 md:mt-[35px]">
+            <legend class="sr-only">Plan</legend>
+            <div class="flex flex-col gap-3 md:flex-row md:gap-[18px]">
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="plan" value="arcade" class="peer sr-only">
+                <span class="flex h-full items-start gap-[14px] rounded-lg border border-purple-200 p-4 hover:border-purple-600 peer-checked:border-purple-600 peer-checked:bg-blue-50 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-purple-600 md:flex-col md:gap-0 md:pt-5">
+                  <img src="./assets/images/icon-arcade.svg" alt="" class="h-10 w-10">
+                  <span class="flex flex-col md:mt-10">
+                    <span class="font-medium">Arcade</span>
+                    <span class="text-sm text-grey-500" data-price="plan" data-monthly="9">$9/mo</span>
+                    <span class="mt-1 text-xs" data-yearly-only hidden>2 months free</span>
+                  </span>
+                </span>
+              </label>
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="plan" value="advanced" class="peer sr-only">
+                <span class="flex h-full items-start gap-[14px] rounded-lg border border-purple-200 p-4 hover:border-purple-600 peer-checked:border-purple-600 peer-checked:bg-blue-50 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-purple-600 md:flex-col md:gap-0 md:pt-5">
+                  <img src="./assets/images/icon-advanced.svg" alt="" class="h-10 w-10">
+                  <span class="flex flex-col md:mt-10">
+                    <span class="font-medium">Advanced</span>
+                    <span class="text-sm text-grey-500" data-price="plan" data-monthly="12">$12/mo</span>
+                    <span class="mt-1 text-xs" data-yearly-only hidden>2 months free</span>
+                  </span>
+                </span>
+              </label>
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="plan" value="pro" class="peer sr-only">
+                <span class="flex h-full items-start gap-[14px] rounded-lg border border-purple-200 p-4 hover:border-purple-600 peer-checked:border-purple-600 peer-checked:bg-blue-50 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-purple-600 md:flex-col md:gap-0 md:pt-5">
+                  <img src="./assets/images/icon-pro.svg" alt="" class="h-10 w-10">
+                  <span class="flex flex-col md:mt-10">
+                    <span class="font-medium">Pro</span>
+                    <span class="text-sm text-grey-500" data-price="plan" data-monthly="15">$15/mo</span>
+                    <span class="mt-1 text-xs" data-yearly-only hidden>2 months free</span>
+                  </span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+          <p id="plan-error" class="mt-3 empty:hidden text-sm font-bold text-red-500" aria-live="polite"></p>
+
+          <div class="mt-6 flex h-12 items-center justify-center gap-6 rounded-lg bg-blue-50 text-sm font-medium md:mt-8">
+            <span id="label-monthly" class="text-blue-950">Monthly</span>
+            <button type="button" id="billing-toggle" role="switch" aria-checked="false" aria-label="Yearly billing"
+              class="relative h-5 w-[38px] rounded-full bg-blue-950 hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">
+              <span class="absolute left-1 top-1 h-3 w-3 rounded-full bg-white transition-transform" id="toggle-knob"></span>
+            </button>
+            <span id="label-yearly" class="text-grey-500">Yearly</span>
+          </div>
+        </section>
+
+        <!-- Step 3 -->
+        <section data-step="3" hidden>
+          <h1 class="text-2xl font-bold outline-none md:text-[32px] md:leading-tight" tabindex="-1">Pick add-ons</h1>
+          <p class="mt-2 leading-[25px] text-grey-500 md:mt-[11px]">Add-ons help enhance your gaming experience.</p>
+
+          <fieldset class="mt-5 flex flex-col gap-3 md:mt-[35px] md:gap-4">
+            <legend class="sr-only">Add-ons</legend>
+            <label class="group flex cursor-pointer items-center gap-4 rounded-lg border border-purple-200 px-4 py-3 hover:border-purple-600 has-[:checked]:border-purple-600 has-[:checked]:bg-blue-50 md:gap-6 md:px-6 md:py-[18px]">
+              <input type="checkbox" name="addon" value="online" class="h-5 w-5 shrink-0 cursor-pointer appearance-none rounded border border-purple-200 bg-white bg-center bg-no-repeat checked:border-purple-600 checked:bg-purple-600 checked:bg-[url('./assets/images/icon-checkmark.svg')] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">
+              <span class="flex flex-1 flex-col">
+                <span class="text-sm font-medium md:text-base">Online service</span>
+                <span class="text-xs text-grey-500 md:text-sm">Access to multiplayer games</span>
+              </span>
+              <span class="text-xs text-purple-600 md:text-sm" data-price="addon" data-monthly="1">+$1/mo</span>
+            </label>
+            <label class="group flex cursor-pointer items-center gap-4 rounded-lg border border-purple-200 px-4 py-3 hover:border-purple-600 has-[:checked]:border-purple-600 has-[:checked]:bg-blue-50 md:gap-6 md:px-6 md:py-[18px]">
+              <input type="checkbox" name="addon" value="storage" class="h-5 w-5 shrink-0 cursor-pointer appearance-none rounded border border-purple-200 bg-white bg-center bg-no-repeat checked:border-purple-600 checked:bg-purple-600 checked:bg-[url('./assets/images/icon-checkmark.svg')] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">
+              <span class="flex flex-1 flex-col">
+                <span class="text-sm font-medium md:text-base">Larger storage</span>
+                <span class="text-xs text-grey-500 md:text-sm">Extra 1TB of cloud save</span>
+              </span>
+              <span class="text-xs text-purple-600 md:text-sm" data-price="addon" data-monthly="2">+$2/mo</span>
+            </label>
+            <label class="group flex cursor-pointer items-center gap-4 rounded-lg border border-purple-200 px-4 py-3 hover:border-purple-600 has-[:checked]:border-purple-600 has-[:checked]:bg-blue-50 md:gap-6 md:px-6 md:py-[18px]">
+              <input type="checkbox" name="addon" value="profile" class="h-5 w-5 shrink-0 cursor-pointer appearance-none rounded border border-purple-200 bg-white bg-center bg-no-repeat checked:border-purple-600 checked:bg-purple-600 checked:bg-[url('./assets/images/icon-checkmark.svg')] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">
+              <span class="flex flex-1 flex-col">
+                <span class="text-sm font-medium md:text-base">Customizable profile</span>
+                <span class="text-xs text-grey-500 md:text-sm">Custom theme on your profile</span>
+              </span>
+              <span class="text-xs text-purple-600 md:text-sm" data-price="addon" data-monthly="2">+$2/mo</span>
+            </label>
+          </fieldset>
+        </section>
+
+        <!-- Step 4 -->
+        <section data-step="4" hidden>
+          <h1 class="text-2xl font-bold outline-none md:text-[32px] md:leading-tight" tabindex="-1">Finishing up</h1>
+          <p class="mt-2 leading-[25px] text-grey-500 md:mt-[11px]">Double-check everything looks OK before confirming.</p>
+
+          <div class="mt-5 rounded-lg bg-blue-50 p-4 md:mt-[35px] md:px-6 md:pb-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium md:text-base" id="summary-plan"></p>
+                <button type="button" id="change-plan" class="block text-sm leading-[18px] md:leading-5 text-grey-500 underline decoration-1 hover:text-purple-600 focus-visible:text-purple-600 focus-visible:outline-none">Change</button>
+              </div>
+              <p class="text-sm font-bold md:text-base" id="summary-plan-price"></p>
+            </div>
+            <ul id="summary-addons" class="mt-3 flex flex-col gap-3 border-t border-purple-200 pt-3 empty:hidden md:mt-[22px] md:gap-4 md:pt-4"></ul>
+          </div>
+          <div class="mt-6 flex items-center justify-between px-4 md:px-6">
+            <p class="text-sm text-grey-500" id="summary-total-label"></p>
+            <p class="font-bold text-purple-600 md:text-xl" id="summary-total"></p>
+          </div>
+        </section>
+
+        <!-- Step 5 -->
+        <section data-step="5" hidden>
+          <div class="py-12 text-center md:flex md:min-h-[494px] md:flex-col md:items-center md:justify-center md:py-0">
+          <img src="./assets/images/icon-thank-you.svg" alt="" class="mx-auto h-14 w-14 md:h-20 md:w-20">
+          <h1 class="mt-6 text-2xl font-bold outline-none md:mt-[30px] md:text-[32px] md:leading-tight" tabindex="-1">Thank you!</h1>
+          <p class="mt-2 leading-[25px] text-grey-500 md:mt-[14px]">Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support@loremgaming.com.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Navigation -->
+      <div id="form-nav" class="mt-auto flex items-center bg-white p-4 md:bg-transparent md:p-0">
+        <button type="button" id="back" class="font-medium text-grey-500 hover:text-blue-950 focus-visible:text-blue-950 focus-visible:outline-none text-sm md:text-base" hidden>Go Back</button>
+        <button type="submit" id="next" class="ml-auto h-10 min-w-[97px] rounded px-4 text-sm font-medium text-white bg-blue-950 hover:bg-[#164a8a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600 md:h-12 md:min-w-[123px] md:rounded-lg md:px-6 md:text-base">Next Step</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const PLAN_NAMES = { arcade: 'Arcade', advanced: 'Advanced', pro: 'Pro' };
+    const PLAN_PRICES = { arcade: 9, advanced: 12, pro: 15 };
+    const ADDONS = {
+      online: { name: 'Online service', price: 1 },
+      storage: { name: 'Larger storage', price: 2 },
+      profile: { name: 'Customizable profile', price: 2 },
+    };
+    const YEARLY_MULTIPLIER = 10;
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const PHONE_RE = /^\+?[\d\s()-]{7,}$/;
+
+    const form = document.getElementById('form');
+    const backBtn = document.getElementById('back');
+    const nextBtn = document.getElementById('next');
+    const nav = document.getElementById('form-nav');
+    const toggle = document.getElementById('billing-toggle');
+
+    const state = { step: 1, yearly: false };
+
+    const price = (monthly) => state.yearly ? monthly * YEARLY_MULTIPLIER : monthly;
+    const suffix = () => state.yearly ? 'yr' : 'mo';
+    const fmt = (amount, plus = false) => `${plus ? '+' : ''}$${amount}/${suffix()}`;
+
+    function showStep(step) {
+      state.step = step;
+      document.querySelectorAll('[data-step]').forEach((s) => { s.hidden = Number(s.dataset.step) !== step; });
+      document.querySelectorAll('[data-step-indicator]').forEach((el) => {
+        // The thank-you screen keeps step 4 highlighted
+        if (Number(el.dataset.stepIndicator) === Math.min(step, 4)) el.setAttribute('aria-current', 'step');
+        else el.removeAttribute('aria-current');
+      });
+      backBtn.hidden = step === 1;
+      nav.hidden = step === 5;
+      nav.classList.toggle('flex', step !== 5);
+      nextBtn.textContent = step === 4 ? 'Confirm' : 'Next Step';
+      nextBtn.classList.toggle('bg-blue-950', step !== 4);
+      nextBtn.classList.toggle('hover:bg-[#164a8a]', step !== 4);
+      nextBtn.classList.toggle('bg-purple-600', step === 4);
+      nextBtn.classList.toggle('hover:bg-[#928cff]', step === 4);
+      if (step === 4) renderSummary();
+      document.querySelector(`[data-step="${step}"] h1`).focus();
+    }
+
+    function setFieldError(input, message) {
+      document.getElementById(`${input.id}-error`).textContent = message;
+      input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    }
+
+    function validateField(input) {
+      const value = input.value.trim();
+      if (!value) return 'This field is required';
+      if (input.id === 'email' && !EMAIL_RE.test(value)) return 'Invalid email address';
+      if (input.id === 'phone' && !PHONE_RE.test(value)) return 'Invalid phone number';
+      return '';
+    }
+
+    function validateStep1() {
+      let firstInvalid = null;
+      ['name', 'email', 'phone'].forEach((id) => {
+        const input = document.getElementById(id);
+        const error = validateField(input);
+        setFieldError(input, error);
+        if (error && !firstInvalid) firstInvalid = input;
+      });
+      if (firstInvalid) firstInvalid.focus();
+      return !firstInvalid;
+    }
+
+    function validateStep2() {
+      const selected = form.querySelector('input[name="plan"]:checked');
+      document.getElementById('plan-error').textContent = selected ? '' : 'Please select a plan';
+      if (!selected) form.querySelector('input[name="plan"]').focus();
+      return Boolean(selected);
+    }
+
+    function renderPrices() {
+      document.querySelectorAll('[data-price]').forEach((el) => {
+        el.textContent = fmt(price(Number(el.dataset.monthly)), el.dataset.price === 'addon');
+      });
+      document.querySelectorAll('[data-yearly-only]').forEach((el) => { el.hidden = !state.yearly; });
+      document.getElementById('label-monthly').className = state.yearly ? 'text-grey-500' : 'text-blue-950';
+      document.getElementById('label-yearly').className = state.yearly ? 'text-blue-950' : 'text-grey-500';
+      toggle.setAttribute('aria-checked', String(state.yearly));
+      document.getElementById('toggle-knob').style.transform = state.yearly ? 'translateX(18px)' : '';
+    }
+
+    function renderSummary() {
+      const plan = form.querySelector('input[name="plan"]:checked').value;
+      const addons = [...form.querySelectorAll('input[name="addon"]:checked')].map((i) => ADDONS[i.value]);
+      const planPrice = price(PLAN_PRICES[plan]);
+      const total = planPrice + addons.reduce((sum, a) => sum + price(a.price), 0);
+
+      document.getElementById('summary-plan').textContent = `${PLAN_NAMES[plan]} (${state.yearly ? 'Yearly' : 'Monthly'})`;
+      document.getElementById('summary-plan-price').textContent = fmt(planPrice);
+      const list = document.getElementById('summary-addons');
+      list.replaceChildren(...addons.map((a) => {
+        const li = document.createElement('li');
+        li.className = 'flex justify-between text-sm';
+        li.innerHTML = `<span class="text-grey-500"></span><span></span>`;
+        li.children[0].textContent = a.name;
+        li.children[1].textContent = fmt(price(a.price), true);
+        return li;
+      }));
+      document.getElementById('summary-total-label').textContent = `Total (per ${state.yearly ? 'year' : 'month'})`;
+      document.getElementById('summary-total').textContent = fmt(total, true);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (state.step === 1 && !validateStep1()) return;
+      if (state.step === 2 && !validateStep2()) return;
+      showStep(state.step + 1);
+    });
+
+    // Clear an error as soon as the field becomes valid, but don't nag while the user is typing
+    ['name', 'email', 'phone'].forEach((id) => {
+      const input = document.getElementById(id);
+      input.addEventListener('input', () => { if (input.getAttribute('aria-invalid') === 'true' && !validateField(input)) setFieldError(input, ''); });
+      input.addEventListener('blur', () => { if (input.value.trim()) setFieldError(input, validateField(input)); });
+    });
+
+    form.querySelectorAll('input[name="plan"]').forEach((r) => r.addEventListener('change', () => {
+      document.getElementById('plan-error').textContent = '';
+    }));
+
+    toggle.addEventListener('click', () => { state.yearly = !state.yearly; renderPrices(); });
+    backBtn.addEventListener('click', () => showStep(state.step - 1));
+    document.getElementById('change-plan').addEventListener('click', () => showStep(2));
+
+    renderPrices();
+  </script>
+</body>
+</html>
