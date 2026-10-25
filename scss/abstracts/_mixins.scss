@@ -1,0 +1,46 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'tokens' as *;
+
+// Mobile-first: everything outside this mixin is the mobile layout
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin text($size) {
+  $pair: map.get($type-scale, $size);
+  font-size: list.nth($pair, 1);
+  line-height: list.nth($pair, 2);
+}
+
+@mixin focus-ring {
+  outline: 2px solid color('purple-600');
+  outline-offset: 2px;
+}
+
+@mixin button-reset {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+// Bordered, selectable surface shared by plan cards and add-on rows
+@mixin selectable {
+  border: 1px solid color('purple-200');
+  border-radius: $radius-md;
+  transition: border-color 150ms ease, background-color 150ms ease;
+
+  &:hover {
+    border-color: color('purple-600');
+  }
+}
+
+@mixin selected {
+  border-color: color('purple-600');
+  background-color: color('blue-50');
+}

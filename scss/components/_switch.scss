@@ -1,0 +1,39 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+$switch-width: 38px;
+$switch-height: 20px;
+$knob-size: 12px;
+$knob-inset: ($switch-height - $knob-size) * 0.5;
+
+.switch {
+  @include button-reset;
+  position: relative;
+  width: $switch-width;
+  height: $switch-height;
+  border-radius: 9999px;
+  background-color: color('blue-950');
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &__knob {
+    position: absolute;
+    top: $knob-inset;
+    left: $knob-inset;
+    width: $knob-size;
+    height: $knob-size;
+    border-radius: 50%;
+    background-color: color('white');
+    transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &[aria-checked='true'] &__knob {
+    transform: translateX($switch-width - $knob-size - 2 * $knob-inset);
+  }
+}

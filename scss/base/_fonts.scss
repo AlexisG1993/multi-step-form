@@ -1,0 +1,17 @@
+@use 'sass:map';
+@use '../abstracts/tokens' as *;
+
+$font-files: (
+  'regular': 'Ubuntu-Regular',
+  'medium': 'Ubuntu-Medium',
+  'bold': 'Ubuntu-Bold',
+);
+
+@each $weight, $file in $font-files {
+  @font-face {
+    font-family: 'Ubuntu';
+    font-weight: map.get($weights, $weight);
+    font-display: swap;
+    src: url('../assets/fonts/#{$file}.ttf') format('truetype');
+  }
+}

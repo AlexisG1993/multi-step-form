@@ -1,0 +1,80 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+.progress {
+  flex-shrink: 0;
+  height: 172px;
+  background: url('../assets/images/bg-sidebar-mobile.svg') center top / cover no-repeat;
+
+  @include md {
+    width: 274px;
+    height: 568px;
+    border-radius: $radius-lg;
+    background-image: url('../assets/images/bg-sidebar-desktop.svg');
+  }
+
+  &__list {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 32px;
+
+    @include md {
+      flex-direction: column;
+      gap: 32px;
+      padding: 40px 32px 0;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    border: 1px solid color('white');
+    border-radius: 50%;
+    @include text('sm');
+    font-weight: weight('bold');
+    color: color('white');
+    transition: background-color 150ms ease, color 150ms ease;
+
+    &[aria-current='step'] {
+      border-color: color('blue-200');
+      background-color: color('blue-200');
+      color: color('blue-950');
+    }
+  }
+
+  // Step labels only fit beside the numbers on desktop
+  &__text {
+    display: none;
+
+    @include md {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__step {
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+    color: color('blue-300');
+  }
+
+  &__title {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: weight('bold');
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: color('white');
+  }
+}

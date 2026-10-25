@@ -1,0 +1,118 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+.summary {
+  padding: 16px;
+  border-radius: $radius-md;
+  background-color: color('blue-50');
+
+  @include md {
+    padding: 16px 24px 20px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__plan,
+  &__plan-price {
+    @include text('sm');
+
+    @include md {
+      @include text('base');
+    }
+  }
+
+  &__plan {
+    font-weight: weight('medium');
+  }
+
+  &__plan-price {
+    font-weight: weight('bold');
+    margin-top: 6px; // design centers the price slightly below the title + link block
+
+    @include md {
+      margin-top: 0;
+    }
+  }
+
+  &__change {
+    @include button-reset;
+    display: block;
+    font-size: 14px;
+    line-height: 18px;
+    color: color('grey-500');
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+
+    &:hover,
+    &:focus-visible {
+      color: color('purple-600');
+      outline: none;
+    }
+
+    @include md {
+      margin-top: 2px;
+      line-height: 20px;
+    }
+  }
+
+  &__addons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 13px;
+    padding-top: 12px;
+    border-top: 1px solid color('purple-200');
+
+    &:empty {
+      display: none;
+    }
+
+    @include md {
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 16px;
+    }
+  }
+
+  &__addon {
+    display: flex;
+    justify-content: space-between;
+    @include text('sm');
+  }
+
+  &__addon-name {
+    color: color('grey-500');
+  }
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 26px;
+  padding: 0 16px;
+
+  @include md {
+    margin-top: 24px;
+    padding: 0 24px;
+  }
+
+  &__label {
+    @include text('sm');
+    color: color('grey-500');
+  }
+
+  &__amount {
+    font-weight: weight('bold');
+    color: color('purple-600');
+    line-height: 20px;
+
+    @include md {
+      @include text('xl');
+    }
+  }
+}

@@ -1,0 +1,62 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+// Outer shell: full-height column on mobile, white card with sidebar on desktop
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  @include md {
+    flex-direction: row;
+    width: 940px;
+    min-height: 0;
+    padding: 16px;
+    border-radius: $radius-xl;
+    background-color: color('white');
+    box-shadow: $shadow-card;
+  }
+}
+
+.form {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+
+  @include md {
+    width: 450px;
+    margin: 0 84px 0 100px;
+    padding: 37px 0 16px;
+  }
+
+  // Floats over the header illustration on mobile, flattens into the card on desktop
+  &__card {
+    position: relative;
+    margin: -73px 16px 0;
+    padding: 30px 24px 32px;
+    border-radius: $radius-lg;
+    background-color: color('white');
+    box-shadow: $shadow-card;
+
+    @include md {
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+
+  // Pinned action bar on mobile, inline footer on desktop
+  &__nav {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    padding: 16px;
+    background-color: color('white');
+
+    @include md {
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+}

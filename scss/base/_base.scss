@@ -1,0 +1,17 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+body {
+  min-height: 100vh;
+  background-color: color('blue-100');
+  font-family: $font-family;
+  @include text('base');
+  color: color('blue-950');
+
+  @include md {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+}

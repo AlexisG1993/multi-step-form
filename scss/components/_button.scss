@@ -1,0 +1,58 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+.btn {
+  @include button-reset;
+  margin-left: auto;
+  min-width: 97px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: $radius-sm;
+  background-color: color('blue-950');
+  @include text('sm');
+  font-weight: weight('medium');
+  color: color('white');
+  transition: background-color 150ms ease;
+
+  &:hover {
+    background-color: $hover-blue;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &--confirm {
+    background-color: color('purple-600');
+
+    &:hover {
+      background-color: $hover-purple;
+    }
+  }
+
+  @include md {
+    min-width: 123px;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: $radius-md;
+    @include text('base');
+  }
+}
+
+.btn-back {
+  @include button-reset;
+  @include text('sm');
+  font-weight: weight('medium');
+  color: color('grey-500');
+  transition: color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: color('blue-950');
+    outline: none;
+  }
+
+  @include md {
+    @include text('base');
+  }
+}

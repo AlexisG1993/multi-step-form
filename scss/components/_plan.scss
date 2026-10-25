@@ -1,0 +1,103 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+.plans {
+
+  &__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @include md {
+      flex-direction: row;
+      gap: 18px;
+    }
+  }
+}
+
+// <label class="plan"> wraps a visually hidden radio + the visible card
+.plan {
+  flex: 1 1 0%;
+  cursor: pointer;
+
+  &__card {
+    @include selectable;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    height: 100%;
+    padding: 14px 16px 17px;
+
+    @include md {
+      flex-direction: column;
+      gap: 0;
+      padding: 20px 16px 18px;
+    }
+  }
+
+  &__input:checked + &__card {
+    @include selected;
+  }
+
+  &__input:focus-visible + &__card {
+    @include focus-ring;
+  }
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+
+    @include md {
+      margin-top: 36px;
+    }
+  }
+
+  &__name {
+    font-weight: weight('medium');
+  }
+
+  &__price {
+    @include text('sm');
+    color: color('grey-500');
+  }
+
+  &__promo {
+    margin-top: 6px;
+    @include text('xs');
+
+    @include md {
+      margin-top: 8px;
+    }
+  }
+}
+
+.billing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  height: 48px;
+  margin-top: 24px;
+  border-radius: $radius-md;
+  background-color: color('blue-50');
+  @include text('sm');
+  font-weight: weight('medium');
+
+  @include md {
+    margin-top: 32px;
+  }
+
+  &__label {
+    color: color('grey-500');
+    transition: color 150ms ease;
+
+    &.is-active {
+      color: color('blue-950');
+    }
+  }
+}

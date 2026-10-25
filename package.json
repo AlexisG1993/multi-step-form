@@ -1,0 +1,14 @@
+{
+  "name": "multi-step-form",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend Mentor multi-step form challenge, styled with Sass",
+  "scripts": {
+    "build": "sass scss/main.scss css/style.css --style=compressed --no-source-map",
+    "watch": "sass scss/main.scss css/style.css --watch",
+    "dev": "npm run watch"
+  },
+  "devDependencies": {
+    "sass": "^1.80.0"
+  }
+}

@@ -1,0 +1,84 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+.addons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include md {
+    gap: 16px;
+  }
+}
+
+.addon {
+  @include selectable;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  cursor: pointer;
+
+  &:has(:checked) {
+    @include selected;
+  }
+
+  @include md {
+    gap: 24px;
+    padding: 17px 24px 18px;
+  }
+
+  &__check {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 1px solid color('purple-200');
+    border-radius: $radius-sm;
+    background: color('white') center no-repeat;
+    cursor: pointer;
+    appearance: none;
+
+    &:checked {
+      border-color: color('purple-600');
+      background-color: color('purple-600');
+      background-image: url('../assets/images/icon-checkmark.svg');
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+  }
+
+  &__name {
+    @include text('sm');
+    font-weight: weight('medium');
+
+    @include md {
+      @include text('base');
+    }
+  }
+
+  &__desc,
+  &__price {
+    @include text('xs');
+
+    @include md {
+      @include text('sm');
+    }
+  }
+
+  &__desc {
+    color: color('grey-500');
+  }
+
+  &__price {
+    color: color('purple-600');
+  }
+}

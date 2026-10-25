@@ -1,0 +1,45 @@
+@use '../abstracts/tokens' as *;
+@use '../abstracts/mixins' as *;
+
+.step {
+  &__title {
+    @include text('2xl');
+    font-weight: weight('bold');
+    outline: none; // receives programmatic focus only
+
+    @include md {
+      font-size: 32px;
+      line-height: 1.25;
+    }
+  }
+
+  &__desc {
+    margin-top: 7px;
+    line-height: 25px;
+    color: color('grey-500');
+
+    @include md {
+      margin-top: 7px;
+    }
+  }
+
+  // Shared top spacing for the first block under each step's intro
+  &__body {
+    margin-top: 22px;
+
+    @include md {
+      margin-top: 39px;
+    }
+  }
+}
+
+.form-error {
+  margin-top: 12px;
+  @include text('sm');
+  font-weight: weight('bold');
+  color: color('red-500');
+
+  &:empty {
+    display: none;
+  }
+}

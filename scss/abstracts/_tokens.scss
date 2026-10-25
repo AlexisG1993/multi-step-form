@@ -1,0 +1,55 @@
+@use 'sass:map';
+
+// Palette from style-guide.md
+$colors: (
+  'blue-950': hsl(213, 96%, 18%),
+  'purple-600': hsl(243, 100%, 62%),
+  'blue-300': hsl(228, 100%, 84%),
+  'blue-200': hsl(206, 94%, 87%),
+  'red-500': hsl(354, 84%, 57%),
+  'grey-500': hsl(231, 11%, 63%),
+  'purple-200': hsl(229, 24%, 87%),
+  'blue-100': hsl(218, 100%, 97%),
+  'blue-50': hsl(231, 100%, 99%),
+  'white': hsl(0, 100%, 100%),
+);
+
+// Hover shades sampled from design/active-states-*.jpg
+$hover-blue: #164a8a;
+$hover-purple: #928cff;
+
+@function color($name) {
+  @if not map.has-key($colors, $name) {
+    @error 'Unknown color `#{$name}`. Expected one of: #{map.keys($colors)}';
+  }
+  @return map.get($colors, $name);
+}
+
+$font-family: 'Ubuntu', sans-serif;
+$weights: (
+  'regular': 400,
+  'medium': 500,
+  'bold': 700,
+);
+
+@function weight($name) {
+  @return map.get($weights, $name);
+}
+
+// Type scale: font-size / line-height pairs
+$type-scale: (
+  'xs': (12px, 16px),
+  'sm': (14px, 20px),
+  'base': (16px, 24px),
+  'xl': (20px, 28px),
+  '2xl': (24px, 32px),
+);
+
+$breakpoint-md: 768px;
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 10px;
+$radius-xl: 15px;
+
+$shadow-card: 0 25px 40px -20px rgba(0, 0, 0, 0.1);
