@@ -1,114 +1,247 @@
-# Frontend Mentor - Multi-step form
+<div align="center">
 
-![Design preview for the Multi-step form coding challenge](preview.jpg)
+# Multi-Step Subscription Form
 
-## Welcome! 👋
+A responsive, accessible, four-step subscription form built with semantic HTML, Tailwind CSS and vanilla JavaScript.
+It's a solution to the [Frontend Mentor multi-step form challenge](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ).
 
-Thanks for checking out this front-end coding challenge.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![No build step](https://img.shields.io/badge/build-none_required-success?style=flat-square)
+![Frontend Mentor](https://img.shields.io/badge/Frontend_Mentor-Challenge-3F54A3?style=flat-square&logo=frontendmentor&logoColor=white)
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+<img src="docs/screenshots/desktop-step-2.png" alt="Desktop view of the plan selection step with yearly billing enabled" width="820">
 
-**To do this challenge, you need a good understanding of HTML, CSS and JavaScript.**
+</div>
 
-## The challenge
+---
 
-Your challenge is to build out this multi-step form and get it looking as close to the design as possible.
+## Table of contents
 
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
+- [Overview](#overview)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Getting started](#getting-started)
+- [Project structure](#project-structure)
+- [How it works](#how-it-works)
+  - [State and navigation](#state-and-navigation)
+  - [Pricing model](#pricing-model)
+  - [Validation rules](#validation-rules)
+  - [Responsive layout](#responsive-layout)
+  - [Accessibility](#accessibility)
+- [Design decisions](#design-decisions)
+- [Testing](#testing)
+- [Known limitations and roadmap](#known-limitations-and-roadmap)
+- [Acknowledgments](#acknowledgments)
+- [Author](#author)
 
-Your users should be able to:
+---
 
-- Complete each step of the sequence
-- Go back to a previous step to update their selections
-- See a summary of their selections on the final step and confirm their order
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
-- Receive form validation messages if:
-  - A field has been missed
-  - The email address is not formatted correctly
-  - A step is submitted, but no selection has been made
+## Overview
 
-### Want some support on the challenge? 
+Users sign up for a gaming subscription in four steps:
 
-[Join our community](https://www.frontendmentor.io/community) and ask questions in the **#help** channel.
+| Step | Purpose |
+| --- | --- |
+| **1. Your info** | Collects name, email address and phone number, with inline validation. |
+| **2. Select plan** | Offers Arcade, Advanced or Pro on monthly or yearly billing. |
+| **3. Add-ons** | Lets the user add optional extras: online service, larger storage and a customizable profile. |
+| **4. Summary** | Shows the plan, add-ons and calculated total, with a shortcut back to change the plan. |
+| **Confirmation** | Shows a thank-you screen after the order is confirmed. |
 
-## Where to find everything
+The whole app is one static `index.html` file with no dependencies to install and no build step.
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
+## Features
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
+- **Step-by-step navigation:** users can move forward and back freely, and every selection is kept.
+- **Monthly/yearly billing toggle:** all prices, the "2 months free" badges and the summary total update together.
+- **Live order summary:** it's calculated from the current selections, with a **Change** link back to plan selection.
+- **Form validation** covers all three cases the challenge requires:
+  - a required field is left empty,
+  - the email address is badly formatted,
+  - a step is submitted without a plan selected.
+- **Responsive layout:** a card with a sidebar on desktop, and a stacked layout with a pinned action bar on mobile.
+- **Hover and focus states** on every interactive element, with visible outlines for keyboard focus.
+- **Accessible by default:** native form controls, a correctly announced on/off switch, error messages that are read out, and focus moved to each new step.
+- **Self-hosted Ubuntu font** (400, 500 and 700 weights), so there are no requests to third-party font services.
 
-If you would like the Figma design file to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+## Screenshots
 
-All the required assets for this project are in the `/assets` folder. The images are already exported for the correct screen size and optimized.
+<table>
+  <tr>
+    <th>Desktop</th>
+    <th>Mobile</th>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/desktop-step-1.png" alt="Desktop: personal info step" width="520"></td>
+    <td><img src="docs/screenshots/mobile-step-1.png" alt="Mobile: personal info step" width="220"></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/desktop-validation.png" alt="Desktop: validation errors on empty fields" width="520"></td>
+    <td><img src="docs/screenshots/mobile-validation.png" alt="Mobile: validation errors on empty fields" width="220"></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/desktop-step-3.png" alt="Desktop: add-ons step with two add-ons selected" width="520"></td>
+    <td><img src="docs/screenshots/mobile-step-3.png" alt="Mobile: add-ons step with two add-ons selected" width="220"></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/desktop-step-4.png" alt="Desktop: order summary with yearly totals" width="520"></td>
+    <td><img src="docs/screenshots/mobile-step-4.png" alt="Mobile: order summary with yearly totals" width="220"></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/desktop-step-5.png" alt="Desktop: thank-you confirmation screen" width="520"></td>
+    <td><img src="docs/screenshots/mobile-step-5.png" alt="Mobile: thank-you confirmation screen" width="220"></td>
+  </tr>
+</table>
 
-We also include variable and static font files for the required fonts for this project. You can choose to either link to Google Fonts or use the local font files to host the fonts yourself. Note that we've removed the static font files for the font weights that aren't needed for this project.
+## Getting started
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+### Prerequisites
 
-## Using AI coding assistants
+You need a modern browser and an internet connection, because Tailwind CSS loads from its CDN.
 
-We've included two files to help you if you're using AI coding assistants (like Claude, GitHub Copilot, Cursor, etc.) while working on this challenge:
+### Run locally
 
-- `AGENTS.md` - Contains detailed instructions for AI assistants on how to help you with this challenge. It's tailored to this challenge's difficulty level, so the AI will provide guidance appropriate to your learning stage—offering more support for beginner challenges and encouraging more independence on advanced ones.
-- `CLAUDE.md` - A pointer file that directs Claude-based tools to the AGENTS.md instructions.
+```bash
+git clone https://github.com/AlexisG1993/multi-step-form.git
+cd multi-step-form
+```
 
-**How to use them:** You don't need to do anything! These files are automatically detected by most AI coding tools. The AI will read them and adjust its behavior to be a better learning partner—guiding you toward solutions rather than just giving you the answers.
+Then open `index.html` in your browser. To serve it over HTTP instead, which is closer to a real deployment, run either of these:
 
-**Note:** These files are designed to help you *learn*, not to do the work for you. The AI is instructed to ask questions, give hints, and explain concepts rather than writing complete solutions.
+```bash
+npx serve .
+# or
+python -m http.server 8000
+```
 
-## Building your project
+### Deploy
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+The project is a static site, so it can be deployed as-is to GitHub Pages, Vercel or Netlify. Point the host at the repository root; there is no build command and no output directory to configure.
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+## Project structure
 
-## Deploying your project
+```text
+multi-step-form/
+├── index.html              # Markup, Tailwind config and application logic
+├── assets/
+│   ├── fonts/              # Self-hosted Ubuntu (Regular, Medium, Bold)
+│   └── images/             # Sidebar backgrounds, plan icons, checkmark, favicon
+├── design/                 # Reference mockups from Frontend Mentor (desktop, mobile, active states)
+├── docs/
+│   └── screenshots/        # Screenshots used in this README
+├── style-guide.md          # Colour palette and typography from the brief
+├── preview.jpg             # Challenge preview image
+└── AGENTS.md / CLAUDE.md   # AI-assistant guidance shipped with the challenge
+```
 
-As mentioned above, there are many ways to host your project for free. Our recommended hosts are:
+## How it works
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+### State and navigation
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://www.frontendmentor.io/guides/hosting-your-solution).
+All application state is a single object:
 
-## Create a custom `README.md`
+```js
+const state = { step: 1, yearly: false };
+```
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+The DOM is the source of truth for selections. The chosen plan is whichever radio button is checked, and the add-ons are whichever checkboxes are checked. This keeps the state object small and means the browser handles keyboard interaction and form semantics with no extra code.
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+- `showStep(n)` shows the matching `<section data-step>`, updates the progress indicator with `aria-current="step"`, swaps the primary button between **Next Step** and **Confirm**, and moves focus to the new step's heading.
+- The form's `submit` event drives forward navigation. Validation runs first, and only steps 1 and 2 can block progress.
+- `renderPrices()` and `renderSummary()` are pure render functions that read from `state` and the form controls, so switching billing period never needs extra bookkeeping.
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+### Pricing model
 
-## Submitting your solution
+Prices are stored once as monthly values. Yearly prices are derived as **10 × the monthly price**, which matches the design's "2 months free" offer.
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://www.frontendmentor.io/guides/how-to-submit-solutions) for tips on how to do this.
+| Item | Monthly | Yearly |
+| --- | ---: | ---: |
+| Arcade | $9/mo | $90/yr |
+| Advanced | $12/mo | $120/yr |
+| Pro | $15/mo | $150/yr |
+| Online service | +$1/mo | +$10/yr |
+| Larger storage | +$2/mo | +$20/yr |
+| Customizable profile | +$2/mo | +$20/yr |
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+### Validation rules
 
-## Sharing your solution
+| Field | Rule | Message |
+| --- | --- | --- |
+| Name | Required | `This field is required` |
+| Email | Required and must match `name@domain.tld` | `Invalid email address` |
+| Phone | Required, at least 7 characters of digits, spaces, `()` or `-`, with an optional leading `+` | `Invalid phone number` |
+| Plan | One option must be selected | `Please select a plan` |
 
-There are multiple places you can share your solution:
+Validation is designed not to nag:
 
-1. Share your solution page in the **#finished-projects** channel of the [community](https://www.frontendmentor.io/community). 
-2. Share on [X (formerly Twitter)](https://x.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in your post. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on [LinkedIn](https://www.linkedin.com/company/frontend-mentor/).
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+- **On submit**, every field is checked and focus moves to the first invalid one.
+- **On blur**, a field that has a value is re-checked, so a malformed email is caught as soon as the user leaves the field.
+- **On input**, an existing error clears as soon as the value becomes valid. New errors never appear while the user is still typing.
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
+The browser's built-in validation popups are turned off with `novalidate`, so the custom inline messages in the design are shown instead.
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+### Responsive layout
 
-## Got feedback for us?
+The layout is mobile-first, with a single breakpoint at Tailwind's `md` size (768px).
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
+| | Mobile (< 768px) | Desktop (≥ 768px) |
+| --- | --- | --- |
+| Progress | Numbered circles over a background illustration | Vertical sidebar with step labels |
+| Content | Floating card that overlaps the header | Fixed 450px column inside a 940px card |
+| Plans | Stacked rows, icon beside text | Three columns, icon above text |
+| Actions | White bar pinned to the bottom of the viewport | Inline at the bottom of the card |
 
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
+Both layouts come from the **same DOM**; only Tailwind's responsive classes change. There are no duplicated components and no JavaScript layout switching.
 
-**Have fun building!** 🚀
+### Accessibility
+
+- **Native controls everywhere:** plans are radio buttons, add-ons are checkboxes and navigation uses buttons, each visually restyled. Keyboard support (Tab, arrow keys, Space) comes from the browser.
+- **The billing toggle** is a `<button role="switch">` with `aria-checked`, so screen readers announce it as an on/off switch.
+- **Errors are linked to their fields** with `aria-describedby`, flagged with `aria-invalid`, and announced through `aria-live="polite"` regions.
+- **Focus moves on every step change** to the new heading (`tabindex="-1"`), so screen-reader and keyboard users are told what changed.
+- **Progress is exposed** through a labelled `<nav>` containing an ordered list, with `aria-current="step"` on the active step.
+- **Decorative images** use empty `alt` attributes, and grouped controls sit inside `<fieldset>` elements with visually hidden legends.
+
+## Design decisions
+
+The layout matches the reference mockups to within about 3px. In a few places the implementation intentionally differs from them:
+
+| Decision | Reasoning |
+| --- | --- |
+| **No plan is pre-selected** | The mockups show Arcade selected, but the brief requires an error when "a step is submitted, but no selection has been made", which can only happen if nothing is selected to begin with. |
+| **Summary shows "(Yearly)" on yearly billing** | One mobile mockup reads "Arcade (Monthly)" next to yearly prices, which looks like a design error. |
+| **Total always has a `+` prefix** | The desktop mockup uses "+$12/mo" and the mobile one "$120/yr". The desktop version was used for both. |
+| **The confirmation screen keeps step 4 highlighted** | Matches the mockups. The thank-you screen isn't a separate numbered step. |
+
+## Testing
+
+The project was checked against the reference designs by rendering every step in headless Chrome ([Puppeteer](https://pptr.dev/)) at **1440×800** and **375×667**, then measuring spacing, sizing and alignment against the mockups in `design/`.
+
+Manual checklist covered:
+
+- [x] Empty submit on step 1 shows an error on all three fields
+- [x] A malformed email shows `Invalid email address`
+- [x] Continuing from step 2 with no plan shows `Please select a plan`
+- [x] Switching between monthly and yearly updates plan prices, add-on prices and the summary
+- [x] **Go Back** and **Change** keep all selections
+- [x] The form can be completed with the keyboard only
+- [x] Hover and focus states appear on inputs, cards, checkboxes, the toggle and buttons
+- [x] Layouts hold from 320px up to wide desktop screens
+
+## Known limitations and roadmap
+
+- **Tailwind is loaded from its CDN**, which compiles styles in the browser at runtime. That's fine for a challenge, but a production build should compile and purge the CSS with the Tailwind CLI.
+- **Nothing is submitted.** Confirming shows the thank-you screen but doesn't send data anywhere. A real version would post to an API and handle loading and error states.
+- **Progress doesn't persist.** Reloading the page resets the form. Saving to `sessionStorage` would let users resume where they left off.
+- **Automated tests:** the Puppeteer walkthrough could be turned into Playwright end-to-end tests with an accessibility check such as axe-core.
+
+## Acknowledgments
+
+- Challenge, design and assets by [Frontend Mentor](https://www.frontendmentor.io).
+- Typeface: [Ubuntu](https://fonts.google.com/specimen/Ubuntu) by Dalton Maag.
+
+## Author
+
+- GitHub: [@AlexisG1993](https://github.com/AlexisG1993)
